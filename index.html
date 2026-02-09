@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 8px solid #ff6b8b;
+            overflow: hidden;
+        }
+        
+        .hearts-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 107, 139, 0.2);
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fab);
+            color: white;
+        }
+        
+        .btn-no {
+            background: linear-gradient(45deg, #6c757d, #adb5bd);
+            color: white;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-yes:hover {
+            background: linear-gradient(45deg, #ff2e4d, #ff6b8b);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff4d6d;
+        }
+        
+        .celebrate-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+            transition: transform 0.5s ease;
+            border: 5px solid #ff4d6d;
+        }
+        
+        .celebrate-message.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .celebrate-message h2 {
+            color: #ff4d6d;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .celebrate-message p {
+            font-size: 1.8rem;
+            color: #555;
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .message {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+            }
+            
+            .buttons-container {
+                gap: 20px;
+            }
+        }
+        
+        .cute-element {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            z-index: 5;
+        }
+        
+        .bear {
+            bottom: 20px;
+            left: 20px;
+            font-size: 4rem;
+        }
+        
+        .flowers {
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-background" id="hearts-bg"></div>
+    
+    <div class="container">
+        <div class="cute-element bear">🐻</div>
+        <div class="cute-element flowers">💐</div>
+        
+        <h1>Will You Be My Valentine? 💖</h1>
+        
+        <p class="message">
+            Every moment with you feels like a beautiful dream. 
+            Your smile lights up my world, and your laughter is my favorite melody. 
+            I feel incredibly lucky to have you in my life. 
+            Would you make me the happiest person and be my Valentine?
+        </p>
+        
+        <div class="buttons-container">
+            <button class="btn btn-yes" id="yesBtn">
+                <i class="fas fa-heart"></i> YES! <i class="fas fa-heart"></i>
+            </button>
+            <button class="btn btn-no" id="noBtn">
+                <i class="fas fa-times-circle"></i> No
+            </button>
+        </div>
+    </div>
+    
+    <div class="fireworks-container" id="fireworks"></div>
+    
+    <div class="celebrate-message" id="celebrateMessage">
+        <h2>Yay! You made me so happy! 🎉</h2>
+        <p>I can't wait to celebrate Valentine's Day with you! 💖</p>
+        <p style="margin-top: 20px; font-size: 1.5rem;">You just made my day! 😊</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating hearts in background
+            const heartsBg = document.getElementById('hearts-bg');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heartsBg.appendChild(heart);
+            }
+            
+            // Get buttons
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const fireworksContainer = document.getElementById('fireworks');
+            const celebrateMessage = document.getElementById('celebrateMessage');
+            
+            // Make "No" button move away from cursor
+            noBtn.addEventListener('mouseover', function() {
+                // Move button to random position within container
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = noBtn.getBoundingClientRect();
+                
+                // Calculate max positions to keep button inside container
+                const maxX = containerRect.width - buttonRect.width - 40;
+                const maxY = containerRect.height - buttonRect.height - 40;
+                
+                // Generate random position within container
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Apply new position
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Add a little rotation for fun
+                noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            });
+            
+            // Click on "No" button - make it even harder to catch
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Make the button "run away" faster
+                const container = document.querySelector('.container');
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = noBtn.getBoundingClientRect();
+                
+                // Calculate max positions to keep button inside container
+                const maxX = containerRect.width - buttonRect.width - 40;
+                const maxY = containerRect.height - buttonRect.height - 40;
+                
+                // Generate new random position
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                // Apply new position with transition
+                noBtn.style.transition = 'left 0.3s ease, top 0.3s ease';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Add more rotation
+                noBtn.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+                
+                // Change button text temporarily
+                const originalText = noBtn.innerHTML;
+                noBtn.innerHTML = '<i class="fas fa-running"></i> Try again!';
+                noBtn.style.background = 'linear-gradient(45deg, #ff4d6d, #ff8fab)';
+                
+                // Change back after a moment
+                setTimeout(() => {
+                    noBtn.innerHTML = originalText;
+                    noBtn.style.background = 'linear-gradient(45deg, #6c757d, #adb5bd)';
+                }, 500);
+            });
+            
+            // Fireworks effect for "Yes" button
+            yesBtn.addEventListener('click', function() {
+                // Show celebration message
+                celebrateMessage.classList.add('show');
+                
+                // Create fireworks
+                createFireworks();
+                
+                // Add floating hearts
+                for (let i = 0; i < 50; i++) {
+                    createFloatingHeart();
+                }
+                
+                // Play celebration sound (optional)
+                playCelebrationSound();
+                
+                // Change background color
+                document.body.style.background = 'linear-gradient(135deg, #ffafbd, #ffc3a0, #ffd6ff)';
+                
+                // Add a nice message in the container
+                const container = document.querySelector('.container');
+                const message = document.createElement('div');
+                message.innerHTML = '<h2 style="color:#ff4d6d; margin-top:20px;">You just made my day! 💖</h2>';
+                container.appendChild(message);
+            });
+            
+            // Function to create fireworks
+            function createFireworks() {
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const firework = document.createElement('div');
+                        firework.className = 'firework';
+                        
+                        // Random position
+                        firework.style.left = `${Math.random() * 100}%`;
+                        firework.style.top = `${Math.random() * 100}%`;
+                        
+                        // Random color
+                        const colors = ['#ff4d6d', '#ff8fab', '#ffafcc', '#ffd6ff', '#ffb3c1'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        firework.style.backgroundColor = color;
+                        firework.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+                        
+                        // Random size
+                        const size = Math.random() * 8 + 3;
+                        firework.style.width = `${size}px`;
+                        firework.style.height = `${size}px`;
+                        
+                        fireworksContainer.appendChild(firework);
+                        
+                        // Animate firework
+                        animateFirework(firework);
+                    }, i * 30);
+                }
+            }
+            
+            // Animate individual firework
+            function animateFirework(firework) {
+                // Initial explosion
+                const size = Math.random() * 30 + 10;
+                firework.style.transform = `scale(${size})`;
+                firework.style.opacity = '0';
+                
+                // Remove after animation
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+            
+            // Create floating hearts for celebration
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💖';
+                heart.style.position = 'fixed';
+                heart.style.fontSize = `${Math.random() * 30 + 20}px`;
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100 + 100}%`;
+                heart.style.opacity = '0.8';
+                heart.style.zIndex = '100';
+                heart.style.pointerEvents = 'none';
+                
+                document.body.appendChild(heart);
+                
+                // Animate heart floating up
+                const animationDuration = Math.random() * 3 + 2;
+                heart.style.transition = `all ${animationDuration}s ease-out`;
+                
+                setTimeout(() => {
+                    heart.style.top = '-10%';
+                    heart.style.opacity = '0';
+                    heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }, 10);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, animationDuration * 1000 + 100);
+            }
+            
+            // Play celebration sound
+            function playCelebrationSound() {
+                // Create audio context for simple beep sounds
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Play a sequence of celebratory beeps
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            // Happy ascending notes
+                            oscillator.frequency.setValueAtTime(300 + (i * 100), audioContext.currentTime);
+                            oscillator.type = 'sine';
+                            
+                            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.5);
+                        }, i * 150);
+                    }
+                } catch (e) {
+                    console.log("Audio could not be played, but that's okay!");
+                }
+            }
+            
+            // Make some elements move around gently
+            const cuteElements = document.querySelectorAll('.cute-element');
+            cuteElements.forEach(el => {
+                // Add slight floating animation
+                el.style.animation = `float ${Math.random() * 4 + 3}s ease-in-out infinite`;
+                el.style.animationDelay = `${Math.random() * 2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
